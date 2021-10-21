@@ -204,15 +204,19 @@ export default {
       password: "",
       province: "",
       regencies: "",
+      provinceName: "",
     };
   },
   methods: {
     submitRegister() {
+      this.$store.state.provinceData.forEach((el) => {
+        el.id == this.province ? (this.provinceName = el.name) : "";
+      });
       this.$store.dispatch("register", {
         name: this.fullName,
         email: this.email,
         password: this.password,
-        provinsi: this.province,
+        provinsi: this.provinceName,
         kabupaten: this.regencies,
       });
     },
@@ -222,7 +226,7 @@ export default {
     },
     selectedRegencies(event) {
       this.regencies = event.target.value;
-    }
+    },
   },
   created() {
     this.$store.dispatch("fetchProvince");
@@ -233,7 +237,7 @@ export default {
     },
     regenciesData() {
       return this.$store.state.regenciesData;
-    }
+    },
   },
 };
 </script>

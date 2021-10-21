@@ -120,9 +120,9 @@ export default new Vuex.Store({
         });
     },
     fetchProvince({ commit }) {
-      regionAxios({
+      mainAxios({
         method: 'GET',
-        url: 'api/provinces.json'
+        url: 'fetchProvinces'
       })
         .then(({ data }) => {
           commit('INSERT_PROVINCE', data);
