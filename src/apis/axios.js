@@ -13,8 +13,4 @@ const midTrans = axios.create({
   baseURL: 'https://api.sandbox.midtrans.com/v2'
 });
 
-const regionAxios = axios.create({
-  baseURL: 'https://www.emsifa.com/api-wilayah-indonesia'
-})
-
-export { mainAxios, midTrans, regionAxios };
+export { mainAxios, midTrans };

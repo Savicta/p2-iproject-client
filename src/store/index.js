@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { mainAxios, midTrans, regionAxios } from '@/apis/axios'
+import { mainAxios, midTrans } from '@/apis/axios'
 import router from '../router'
 
 Vue.use(Vuex)
@@ -132,9 +132,9 @@ export default new Vuex.Store({
         });
     },
     fetchRegencies({ commit }, provinceId) {
-      regionAxios({
+      mainAxios({
         method: 'GET',
-        url: `api/regencies/${provinceId}.json`
+        url: `fetchRegiences/${provinceId}`
       })
         .then(({ data }) => {
           commit('INSERT_REGENCIES', data);
