@@ -7,16 +7,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userName: '',
+    userData: {},
     dataList: {},
     detailAnimal: {},
     provinceData: {},
     regenciesData: {},
-    transactionToken: ""
+    transactionToken: ''
   },
   mutations: {
     INSERT_USER_NAME(state, name) {
-      state.userName = name;
+      state.userData = name;
     },
     INSERT_DATA(state, data) {
       state.dataList = data;
@@ -71,7 +71,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          commit('INSERT_USER_NAME', data.name);
+          commit('INSERT_USER_NAME', data);
           commit('INSERT_DATA', data.result);
         })
         .catch((err) => {

@@ -145,16 +145,14 @@ export default {
       const payload = {
         transaction_details: {
           order_id: "YOUR-ORDERID-123456",
-          gross_amount: 10000,
+          gross_amount: this.total,
         },
         credit_card: {
           secure: true,
         },
         customer_details: {
-          first_name: this.userName,
-          last_name: "",
-          email: "budi.pra@example.com",
-          // phone: "08111222333",
+          first_name: this.userData.name,
+          email: this.userData.email
         },
       };
       this.$store.dispatch("payment", payload);
@@ -165,8 +163,8 @@ export default {
     detailAnimal() {
       return this.$store.state.detailAnimal;
     },
-    userName() {
-      return this.$store.state.userName;
+    userData() {
+      return this.$store.state.userData;
     },
     transactionToken() {
       return this.$store.state.transactionToken;
