@@ -142,20 +142,6 @@ export default {
         Number(this.$store.state.detailAnimal.tax) * this.jumlahYangDibayar;
     },
     pay() {
-      // console.log(this.userName);
-      //       "transaction_details": {
-      //   "order_id": "YOUR-ORDERID-123456",
-      //   "gross_amount": 10000
-      // },
-      // "credit_card": {
-      //   "secure": true
-      // },
-      // "customer_details": {
-      //   "first_name": "budi",
-      //   "last_name": "pratama",
-      //   "email": "budi.pra@example.com",
-      //   "phone": "08111222333"
-      // }
       const payload = {
         transaction_details: {
           order_id: "YOUR-ORDERID-123456",
@@ -168,7 +154,7 @@ export default {
           first_name: this.userName,
           last_name: "",
           email: "budi.pra@example.com",
-          phone: "08111222333",
+          // phone: "08111222333",
         },
       };
       this.$store.dispatch("payment", payload);
