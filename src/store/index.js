@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { mainAxios, midTrans } from '@/apis/axios'
+import { mainAxios } from '@/apis/axios'
 import router from '../router'
 
 Vue.use(Vuex)
@@ -11,7 +11,8 @@ export default new Vuex.Store({
     dataList: {},
     detailAnimal: {},
     provinceData: {},
-    regenciesData: {}
+    regenciesData: {},
+    transactionToken: ""
   },
   mutations: {
     INSERT_USER_NAME(state, name) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     INSERT_REGENCIES(state, data) {
       state.regenciesData = data;
+    },
+    INSERT_TRANSACTION_TOKEN(state, data) {
+      state.transactionToken = data;
     }
   },
   actions: {
@@ -94,26 +98,17 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
-    payment(_) {
-      midTrans({
+    payment({ commit }, payload) {
+      mainAxios({
         method: 'POST',
-        url: 'charge',
-        data: {
-          "payment_type": "bank_transfer",
-          "transaction_details": {
-            "order_id": "order-103",
-            "gross_amount": 44000
-          },
-          "bank_transfer": {
-            "bank": "bca"
-          }
-        },
+        url: 'order',
+        data: payload,
         headers: {
-          Authorization: 'Basic U0ItTWlkLXNlcnZlci1aM1Vud191X3p5cFFLb0F2RzNKVkV0dUI6'
+          access_token: localStorage.access_token
         }
       })
-        .then((result) => {
-          console.log(result);
+        .then(({ data }) => {
+          commit('INSERT_TRANSACTION_TOKEN', data.transactionToken);
         })
         .catch((err) => {
           console.log(err);

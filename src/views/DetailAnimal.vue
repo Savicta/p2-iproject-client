@@ -93,7 +93,7 @@
                 pl-3
                 pr-3
               "
-            >{{ total }}
+              >{{ total }}
             </span>
           </div>
           <button
@@ -133,23 +133,57 @@ export default {
     return {
       jumlahYangDibayar: 0,
       total: 0,
-      aaName:
-        this.$route.params.name.charAt(0).toUpperCase() +
-        this.$route.params.name.slice(1),
     };
   },
   methods: {
     jumlah(event) {
       this.jumlahYangDibayar = event.target.value;
-      this.total = Number(this.$store.state.detailAnimal.tax) * this.jumlahYangDibayar
+      this.total =
+        Number(this.$store.state.detailAnimal.tax) * this.jumlahYangDibayar;
     },
     pay() {
-      this.$store.dispatch("payment");
+      // console.log(this.userName);
+      //       "transaction_details": {
+      //   "order_id": "YOUR-ORDERID-123456",
+      //   "gross_amount": 10000
+      // },
+      // "credit_card": {
+      //   "secure": true
+      // },
+      // "customer_details": {
+      //   "first_name": "budi",
+      //   "last_name": "pratama",
+      //   "email": "budi.pra@example.com",
+      //   "phone": "08111222333"
+      // }
+      const payload = {
+        transaction_details: {
+          order_id: "YOUR-ORDERID-123456",
+          gross_amount: 10000,
+        },
+        credit_card: {
+          secure: true,
+        },
+        customer_details: {
+          first_name: this.userName,
+          last_name: "",
+          email: "budi.pra@example.com",
+          phone: "08111222333",
+        },
+      };
+      this.$store.dispatch("payment", payload);
+      window.snap.pay(this.transactionToken);
     },
   },
   computed: {
     detailAnimal() {
       return this.$store.state.detailAnimal;
+    },
+    userName() {
+      return this.$store.state.userName;
+    },
+    transactionToken() {
+      return this.$store.state.transactionToken;
     },
   },
   created() {
